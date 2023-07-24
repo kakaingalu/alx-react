@@ -1,4 +1,4 @@
-const $ = require('jquery');
+import $ from 'jquery';
 
 $('body').append('<p>Holberton School</p>');
 $('body').append('<p>Dashboard data for the students</p>');
