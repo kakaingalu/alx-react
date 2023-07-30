@@ -13,8 +13,7 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        // type: 'asset/resource',
+        test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
           'file-loader',
           {
@@ -25,11 +24,6 @@ module.exports = {
             },
           },
         ],
-      },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        // use: ['babel-loader'],
       },
     ],
   },
