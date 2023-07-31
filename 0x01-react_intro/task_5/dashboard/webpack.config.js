@@ -10,7 +10,7 @@ module.exports = {
   devtool: 'inline-source-map', // to debug the code
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html', // to import index.html file inside index.js
+      template: 'dist/index.html', // to import index.html file inside index.js
     }),
   ],
   performance: {
