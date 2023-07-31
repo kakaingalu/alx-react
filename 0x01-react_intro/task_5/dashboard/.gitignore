@@ -1,5 +1,2 @@
 node_modules/
-.eslintrc.js
-.babelrc
-dist/bundle.js.LICENSE.txt
-
+bundle.js
