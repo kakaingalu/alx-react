@@ -1,52 +1,69 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+const path = require('path');
 
-export const entry = './src/index.js';
-export const output = {
-  filename: 'bundle.js',
-};
-export const mode = 'development';
-export const module = {
-  rules: [
-    {
-      test: /\.css$/i,
-      use: ['style-loader', 'css-loader'],
-    },
-    {
-      test: /\.(png|svg|jpg|jpeg|gif)$/i,
-      // type: 'asset/resource',
-      use: [
-        'file-loader',
-        {
-          loader: 'image-webpack-loader',
-          options: {
-            bypassOnDebug: true,
-            disable: true, // webpack@2.x and newer
-          },
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, '../dist'),
+  },
+  devServer: {
+    static: path.resolve(__dirname, '../dist'),
+    hot: true,
+    port: 8564,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
         },
-      ],
-    },
-    {
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      use: ['babel-loader'],
-    },
-  ],
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/',
+              publicPath: 'assets/',
+            },
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65,
+              },
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: [0.65, 0.9],
+                speed: 4,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              webp: {
+                quality: 75,
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.ico$/,
+        use: 'file-loader?name=[name].[ext]',
+      },
+    ],
+  },
+  devtool: 'inline-source-map',
 };
-export const resolve = {
-  extensions: ['.*', '.js', '.jsx'],
-};
-export const devServer = {
-  static: './dist',
-  compress: true,
-  open: true,
-  hot: true,
-  port: 8564,
-};
-export const devtool = 'inline-source-map';
-export const plugins = [
-  new HtmlWebpackPlugin({
-    name: 'index.html',
-    inject: false,
-    template: './dist/index.html',
-  }),
-];
