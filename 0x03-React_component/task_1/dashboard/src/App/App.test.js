@@ -49,4 +49,30 @@ describe('<App />', () => {
       expect(wrapper.find(CourseList).length).toBe(1);
     });
   });
+
+  describe('when the keys control and h are pressed', () => {
+    let originalAlert;
+
+    beforeEach(() => {
+      const logOutMock = jest.fn();
+      const wrapper = shallow(<App logOut={logOutMock} />);
+      originalAlert = window.alert;
+    });
+
+    afterEach(() => {
+      window.alert = originalAlert;
+      jest.restoreAllMocks();
+    });
+
+    it('calls the logOut function', () => {
+      document.dispatchEvent(new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' }));
+      expect(logOutMock).toHaveBeenCalled();
+    });
+
+    it('displays the alert message "Logging you out"', () => {
+      window.alert = jest.fn();
+      document.dispatchEvent(new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' }));
+      expect(window.alert).toHaveBeenCalledWith('Logging you out');
+    });
+  });
 });
