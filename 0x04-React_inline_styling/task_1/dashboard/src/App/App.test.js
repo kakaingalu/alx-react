@@ -6,8 +6,18 @@ import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
 import CourseList from '../CourseList/CourseList';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 describe('<App />', () => {
+
+  beforeEach (() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach (() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+  
   it('renders without crashing', () => {
     const wrapper = shallow(<App />);
     expect(wrapper).not.toBeNull();
@@ -52,9 +62,10 @@ describe('<App />', () => {
 
   describe('when the keys control and h are pressed', () => {
     let originalAlert;
+    let logOutMock;
 
     beforeEach(() => {
-      const logOutMock = jest.fn();
+      logOutMock = jest.fn();
       const wrapper = shallow(<App logOut={logOutMock} />);
       originalAlert = window.alert;
     });

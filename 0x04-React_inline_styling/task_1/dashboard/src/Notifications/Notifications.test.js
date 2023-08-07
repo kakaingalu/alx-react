@@ -3,7 +3,16 @@ import { shallow } from "enzyme";
 import { getLatestNotification } from "../utils/utils";
 import Notifications from "./Notifications";
 import NotificationItem from "./NotificationItem";
+import { StyleSheetTestUtils } from 'aphrodite';
 
+
+beforeEach (() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+afterEach (() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 const listNotifications = [
   { id: 1, type: "default", value: "New course available" },
   { id: 2, type: "urgent", value: "New resume available" },
