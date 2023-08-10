@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow,mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import App from './App';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
@@ -7,7 +7,6 @@ import Login from '../Login/Login';
 import Footer from '../Footer/Footer';
 import CourseList from '../CourseList/CourseList';
 import { StyleSheetTestUtils } from 'aphrodite';
-import { AppContext } from "../App/AppContext";
 
 describe('<App />', () => {
 
@@ -85,11 +84,7 @@ describe('<App />', () => {
 
     beforeEach(() => {
       logOutMock = jest.fn();
-      const wrapper = mount(
-        <AppContext.Provider value={{ user, logOut }}>
-          <App logOut={logOutMock} />
-        </AppContext.Provider>
-      );
+      const wrapper = shallow(<App logOut={logOutMock} />);
       originalAlert = window.alert;
     });
 
