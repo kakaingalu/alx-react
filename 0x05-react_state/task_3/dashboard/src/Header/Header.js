@@ -2,7 +2,6 @@ import React from 'react';
 import logo from '../assets/holberton-logo.jpg';
 import { StyleSheet, css} from 'aphrodite';
 import { AppContext } from '../App/AppContext';
-import { useContext } from 'react/cjs/react.production.min';
 
 function Header() {
   const { user, logOut } = useContext(AppContext);

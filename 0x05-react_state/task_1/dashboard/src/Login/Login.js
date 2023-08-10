@@ -9,7 +9,7 @@ function Login() {
     
     const handleLoginSubmit = (e) => {
         e.preventDefault();
-        propsOfNode.logIn(e.target.elements.email.value, e.target.elements.password.value);
+        setIsLoggedIn(true);
     };
 
     const handleChangeEmail = (e) => {
@@ -71,10 +71,6 @@ function Login() {
         </>
     )
 }
-
-Login.propTypes = {
-    logIn: propTypes.func
-};
 
 const styles = StyleSheet.create({
     App: {
