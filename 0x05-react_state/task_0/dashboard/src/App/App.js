@@ -16,7 +16,7 @@ class App extends React.Component {
 
     this.state = {
       displayDrawer: false,
-    }
+    };
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
@@ -37,23 +37,19 @@ class App extends React.Component {
 
   handleKeyPress(e) {
     if (e.ctrlKey && e.key === "h") {
-      e.preventDefault();
       alert("Logging you out");
       this.props.logOut();
     }
   }
 
   handleDisplayDrawer() {
-    this.setState({
-      displayDrawer: true,
-    });
+    this.setState({ displayDrawer: true });
   }
 
   handleHideDrawer() {
-    this.setState({
-      displayDrawer: false,
-    })
+    this.setState( {displayDrawer: false });
   }
+
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyPress);
   }
@@ -62,17 +58,34 @@ class App extends React.Component {
     document.removeEventListener("keydown", this.handleKeyPress);
   }
 
-  render() {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.displayDrawer !== nextState.displayDrawer) {
+      return true;
+    }
+    return false;
+  }
 
+  render() {
+    const { displayDrawer } = this.state;
+
+    const styles = StyleSheet.create({
+      app: {
+        height: '100vh',
+        maxWidth: '100vw',
+        position: 'relative',
+        fontFamily: 'Arial, Helvetica, sans-serif',
+      },
+    });
+    
     return (
       <React.Fragment>
         <div className={css(styles.app)}>
           <div className={css(styles.headingSection)}>
             <Notifications 
+            displayDrawer={displayDrawer}
+            handleDisplayDrawer={this.handleDisplayDrawer}
+            handleHideDrawer={this.handleHideDrawer}
             listNotifications={this.listNotifications} 
-            displayDrawer = {this.state.displayDrawer}
-            handleDisplayDrawer = {this.handleDisplayDrawer}
-            handleHideDrawer = {this.handleHideDrawer} 
             />
             <Header />
           </div>
@@ -97,15 +110,6 @@ class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  app: {
-    height: '100vh',
-    maxWidth: '100vw',
-    position: 'relative',
-    fontFamily: 'Arial, Helvetica, sans-serif',
-  },
-})
 
 App.defaultProps = {
   isLoggedIn: false,

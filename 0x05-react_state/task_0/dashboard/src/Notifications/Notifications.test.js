@@ -130,11 +130,11 @@ describe("onclick event behaves as it should", () => {
     const wrapper = shallow(<Notifications />);
     const spy = jest.spyOn(console, "log").mockImplementation();
 
-    wrapper.instance().markAsRead = spy;
     wrapper.instance().markAsRead(1);
-    expect(wrapper.instance().markAsRead).toBeCalledWith(1);
+
     expect(spy).toBeCalledTimes(1);
     expect(spy).toBeCalledWith(1);
+
     spy.mockRestore();
   });
 });

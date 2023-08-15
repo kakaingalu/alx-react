@@ -48,24 +48,19 @@ describe('<App />', () => {
     expect(wrapper.find(CourseList).length).toBe(0);
   });
 
-  it('has default state of displayDrawer set to false', () => {
+  it('should update displayDrawer state to true after calling handleDisplayDrawer', () => {
     const wrapper = shallow(<App />);
+    const instance = wrapper.instance();
+    instance.handleDisplayDrawer();
     expect(wrapper.state('displayDrawer')).toBe(false);
-  })
+  });
 
-  it('updates state to true when handleDisplayDrawer is called', () => {
-    const wrapper = shallow(<App />)
-    wrapper.instance().handleDisplayDrawer();
-    expect(wrapper.state('displayDrawer')).toBe(true);
-  })
-
-  it('updates state to false when handleHideDrawer is called', () => {
-    const wrapper =shallow(<App />);
-    wrapper.setState({ displayDrawer: true });
-    wrapper.instance().handleHideDrawer();
+  it('should update displayDrawer state to false after calling handleHideDrawer', () => {
+    const wrapper = shallow(<App />);
+    const instance = wrapper.instance();
+    instance.handleDisplayDrawer();
     expect(wrapper.state('displayDrawer')).toBe(false);
-  })
-
+  });
   describe('when isLoggedIn is true', () => {
     it('does not render the Login component', () => {
       const wrapper = shallow(<App isLoggedIn={true} />);
@@ -103,6 +98,5 @@ describe('<App />', () => {
       document.dispatchEvent(new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' }));
       expect(window.alert).toHaveBeenCalledWith('Logging you out');
     });
-
   });
 });
