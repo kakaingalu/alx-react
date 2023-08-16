@@ -15,4 +15,4 @@ const obj = {
 };
 
 const results = getImmutableObject(obj);
-console.log(results);
+console.log(results.toString());
