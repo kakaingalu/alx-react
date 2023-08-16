@@ -1,6 +1,6 @@
 const { fromJS } = require('immutable');
 
-function getImmutableObject(object) {
+function getImmutableObject (object) {
   if (typeof object !== 'object' || object === null) {
     throw new Error('input must be a valid object');
   }
@@ -11,7 +11,7 @@ const obj = {
   fear: true,
   smell: -1033575916.9145899,
   wall: false,
-  thing: -914767132,
+  thing: -914767132
 };
 
 const results = getImmutableObject(obj);
