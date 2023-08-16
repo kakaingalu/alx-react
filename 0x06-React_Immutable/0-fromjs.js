@@ -1,8 +1,8 @@
-const { fromJS } = require('immutable');
+const { Map, fromJS } = require('immutable');
 
 function getImmutableObject(object) {
   if (typeof object !== 'object' || object === null) {
-    throw new Error('input must be a valid object');
+    throw new Error('Input must be a valid object');
   }
   return fromJS(object);
 }
