@@ -1,13 +1,20 @@
-import { Map, Seq } from 'immutable';
+import { Seq } from 'immutable';
 
-const printBestStudents = (grades) => {
-  const filteredGrades = Seq(grades)
-    .filter((student) => student.score >= 70)
-    .map((student) => Map(student).update('firstName', (name) => name.charAt(0).toUpperCase() + name.slice(1)))
-    .map((student) => student.update('lastName', (name) => name.charAt(0).toUpperCase() + name.slice(1)))
-    .toObject();
+export default function printBestStudents(object) {
+  const seq = Seq(object);
 
-  console.log(JSON.stringify(filteredGrades, null, 4));
-};
+  const filtered = seq.filter((student) => student.score >= 70);
 
-export default printBestStudents;
+  function capFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  const JSObject = filtered.toJS();
+
+  Object.keys(JSObject).forEach((key) => {
+    JSObject[key].firstName = capFirstLetter(JSObject[key].firstName);
+    JSObject[key].lastName = capFirstLetter(JSObject[key].lastName);
+  });
+
+  console.log(JSObject);
+}
