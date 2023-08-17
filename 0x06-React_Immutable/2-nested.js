@@ -1,15 +1,6 @@
-export default function accessImmutableObject(object, array) {
-  if (!object) {
-    return undefined;
-  }
+import { fromJS } from 'immutable';
 
-  const [key, ...remainingPath] = array;
-
-  if (object instanceof Map) {
-    return accessImmutableObject(object.get(key), remainingPath);
-  } if (typeof object === 'object' && object !== null) {
-    return accessImmutableObject(object[key], remainingPath);
-  }
-
-  return object;
+function accessImmutableObject(object, array) {
+  return fromJS(object).getIn(array, undefined);
 }
+export default accessImmutableObject;
