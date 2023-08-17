@@ -1,24 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { getFullYear, getFooterCopy } from '../utils/utils'
 import { StyleSheet, css } from 'aphrodite'
 import { AppContext } from '../App/AppContext'
 
 function Footer (props) {
+  const context = useContext(AppContext)
+
   return (
-    <AppContext.Consumer>
-      {(value) => (
         <div className={css(styles.AppFooter)}>
           <p> Copyright {getFullYear()} - {getFooterCopy(true)}</p>
-          {value.user.isLoggedIn
-            ? (
+          {context.user.isLoggedIn && (
             <p className={css(styles.contactUsStyle)}>
               <a href='#'>Contact Us</a>
             </p>
-              )
-            : null}
+          )}
         </div>
-      )}
-    </AppContext.Consumer>
   )
 }
 

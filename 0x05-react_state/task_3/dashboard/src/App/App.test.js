@@ -61,6 +61,27 @@ describe('<App />', () => {
     instance.handleDisplayDrawer()
     expect(wrapper.state('displayDrawer')).toBe(false)
   })
+
+  it('updates the state correctly when markNotificationAsRead is called', () => {
+    const wrapper = shallow(<App />)
+    const instance = wrapper.instance()
+
+    const initialNotifications = [
+      { id: 1, type: 'default', value: 'Notification 1' },
+      { id: 2, type: 'urgent', value: 'Notification 2' }
+    ]
+
+    wrapper.setState({ listNotifications: initialNotifications })
+
+    const notificationId = 1
+    instance.markNotificationAsRead(notificationId)
+
+    const expectedNotifications = [
+      { id: 2, type: 'urgent', value: 'Notification 2' }
+    ]
+    expect(wrapper.state('listNotifications')).toEqual(expectedNotifications)
+  })
+
   describe('when isLoggedIn is true', () => {
     it('does not render the Login component', () => {
       const wrapper = shallow(<App isLoggedIn={true} />)
