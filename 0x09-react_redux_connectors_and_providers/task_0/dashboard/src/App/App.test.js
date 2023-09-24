@@ -142,4 +142,16 @@ describe('<App />', () => {
       })
     })
   })
+  describe('mapStateToProps', () => {
+    it('returns the right object from mapStateToProps', () => {
+      const state = fromJS({
+        isUserLoggedIn: true
+      });
+      const exoectedProps = {
+        isLoggedIn: true
+      };
+      const result = App.WrappedComponent.prototype.App.mapStateToProps(state);
+      expect(result).toEqual(exoectedProps);
+    });
+  });
 })

@@ -1,14 +1,19 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable semi */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import uiReducer, { initialState } from './reducers/uiReducer';
 import App from './App/App';
+import { Map } from 'immutable';
 
 const rootElement = document.getElementById('root');
-
+const store = createStore(uiReducer, Map(initialState));
 createRoot(rootElement).render(
-  <>
-    <App />
-  </>
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
 );
+
+export default store;

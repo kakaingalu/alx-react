@@ -1,5 +1,6 @@
 /* eslint-disable semi */
 import React, { useState } from 'react'
+import { connect } from 'react-redux';
 import { StyleSheet, css } from 'aphrodite'
 import Notifications from '../Notifications/Notifications'
 import Header from '../Header/Header'
@@ -10,6 +11,7 @@ import BodySection from '../BodySection/BodySection'
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom'
 import { getLatestNotification } from '../utils/utils'
 import { defaultUser, AppContext } from './AppContext'
+
 
 function App () {
   const [displayDrawer, setDisplayDrawer] = useState(false);
@@ -43,6 +45,12 @@ function App () {
   };
 
   const contextValue = { user, logOut, markNotificationAsRead };
+
+  function mapStateToProps(state) {
+    return {
+      isLoggedIn: state.uiReducer.isLoggedIn
+    };
+  }
 
   return (
     <AppContext.Provider value={contextValue}>
@@ -107,4 +115,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
+export default connect(mapStateToProps)(App);
